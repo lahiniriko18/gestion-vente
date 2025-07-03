@@ -38,8 +38,7 @@ class CommandeView(APIView):
 
 class CommandeDetailView(APIView):
     def get(self, request):
-        commande = Commande.objects.filter().order_by('-numCommande').first()
-        if commande:
-            return Response(CommandeSerializer(commande, context={'request':request}).data, status=status.HTTP_200_OK)
-        return Response({}, status=status.HTTP_200_OK)
-        
+        commandes = Commande.objects.order_by('-numCommande')[:2]
+        if commandes:
+            return Response(CommandeSerializer(commandes, many=True, context={'request':request}).data, status=status.HTTP_200_OK)
+        return Response([], status=status.HTTP_200_OK)

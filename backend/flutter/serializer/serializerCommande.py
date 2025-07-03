@@ -13,7 +13,7 @@ class CommandeSerializer(serializers.ModelSerializer):
         }
     )
     client = ClientSerializer(source='numClient', read_only = True)
-    produits = serializers.SerializerMethodField()
+    produits = serializers.SerializerMethodField(read_only = True)
     class Meta:
         model=Commande
         fields=[
@@ -28,10 +28,11 @@ class CommandeSerializer(serializers.ModelSerializer):
     def get_produits(self, obj):
         comprendres=obj.comprendres.all()
         request = self.context.get('request')
-        return [
-            ProduitSerializer(comprendre.numProduit, context={'request':request}).data
-            for comprendre in comprendres if comprendre.numProduit
-        ]
+        d={}
+        for comprendre in comprendres:
+            d["numProduit"]=comprendre.numProduit.numProduit
+            d["quantiteCommande"]=comprendre.quantiteCommande
+        return d
     
     def validate(self, data):
         return data
