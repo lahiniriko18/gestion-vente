@@ -28,10 +28,12 @@ class CommandeSerializer(serializers.ModelSerializer):
     def get_produits(self, obj):
         comprendres=obj.comprendres.all()
         request = self.context.get('request')
-        d={}
+        d=[]
         for comprendre in comprendres:
-            d["numProduit"]=comprendre.numProduit.numProduit
-            d["quantiteCommande"]=comprendre.quantiteCommande
+            d.append({
+                "numProduit":comprendre.numProduit.numProduit,
+                "quantiteCommande":comprendre.quantiteCommande
+            })
         return d
     
     def validate(self, data):
