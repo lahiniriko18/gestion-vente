@@ -49,7 +49,8 @@ class Produit(models.Model):
         Categorie, 
         related_name='produits', 
         on_delete=models.CASCADE, 
-        db_column='numCategorie'
+        db_column='numCategorie',
+        null=True
     )
     libelleProduit = models.CharField(max_length=20)
     quantite = models.FloatField(default=0)

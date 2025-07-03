@@ -1,7 +1,5 @@
 from rest_framework import serializers
 from ..models import Produit,Classement,Categorie
-from .serializerCategorie import CategorieSerializer
-from .serializerClassement import ClassementSerializer
 
 class ProduitSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
@@ -16,6 +14,8 @@ class ProduitSerializer(serializers.ModelSerializer):
     )
     numCategorie = serializers.PrimaryKeyRelatedField(
         queryset=Categorie.objects.all(),
+        allow_null = True,
+        required =False,
         error_messages={
             'does_not_exist': "Ce categorie spécifié n'existe pas !",
             'incorrect_type': "Le format de l'ID du categorie est invalide !",
