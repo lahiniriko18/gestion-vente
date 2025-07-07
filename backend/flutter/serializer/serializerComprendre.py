@@ -33,7 +33,4 @@ class ComprendreSerializer(serializers.ModelSerializer):
         return data
     
     def create(self, validated_data):
-        produit=validated_data.get("numProduit")
-        produit.quantite-=validated_data.get("quantiteCommande",0)
-        produit.save()
         return Comprendre.objects.create(**validated_data)

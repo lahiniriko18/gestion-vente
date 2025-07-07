@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ..models import Produit,Classement,Categorie
-
+from .serializerCategorie import CategorieSerializer
 class ProduitSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
     numClassement = serializers.PrimaryKeyRelatedField(
@@ -25,13 +25,14 @@ class ProduitSerializer(serializers.ModelSerializer):
         allow_null = True,
         required = False
     )
-
+    categorie = CategorieSerializer(source='numCategorie', read_only = True)
     class Meta:
         model=Produit
         fields=[
             "numProduit",
             "numClassement",
             "numCategorie",
+            "categorie",
             "libelleProduit",
             "quantite",
             "prixUnitaire",
