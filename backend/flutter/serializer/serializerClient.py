@@ -6,7 +6,7 @@ class ClientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=Client
-        fields=["numClient","nom","contact"]
+        fields=["numClient","nom","contact","adresse"]
     
     def validate_contact(self,value):
         contactFiltrer=value.replace(" ","")

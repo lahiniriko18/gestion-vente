@@ -100,6 +100,7 @@ class Client(models.Model):
     numClient = models.AutoField(primary_key=True)
     nom = models.CharField(max_length=20)
     contact = models.CharField(max_length=17, null=True)
+    adresse = models.CharField(max_length=100, null=True)
 
     class Meta:
         db_table = 'client'
